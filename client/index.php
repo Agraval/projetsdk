@@ -58,12 +58,12 @@ function callback()
     ], $specifParams));
     $response = file_get_contents("http://server:8080/token?{$queryParams}");
     $token = json_decode($response, true);
-
+    
     $context = stream_context_create([
         'http' => [
             'header' => "Authorization: Bearer {$token['access_token']}"
-        ]
-    ]);
+            ]
+        ]);
     $response = file_get_contents("http://server:8080/me", false, $context);
     $user = json_decode($response, true);
     echo "Hello {$user['lastname']} {$user['firstname']}";
@@ -74,9 +74,9 @@ function fbcallback()
     ["code" => $code, "state" => $state] = $_GET;
 
     $specifParams = [
-        'code' => $code,
-        'grant_type' => 'authorization_code',
-    ];
+            'code' => $code,
+            'grant_type' => 'authorization_code',
+        ];
 
     $queryParams = http_build_query(array_merge([
         'client_id' => FACEBOOK_CLIENT_ID,
@@ -85,12 +85,12 @@ function fbcallback()
     ], $specifParams));
     $response = file_get_contents("https://graph.facebook.com/v2.10/oauth/access_token?{$queryParams}");
     $token = json_decode($response, true);
-
+    
     $context = stream_context_create([
         'http' => [
             'header' => "Authorization: Bearer {$token['access_token']}"
-        ]
-    ]);
+            ]
+        ]);
     $response = file_get_contents("https://graph.facebook.com/v2.10/me", false, $context);
     $user = json_decode($response, true);
     echo "Hello {$user['name']}";

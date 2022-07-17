@@ -161,7 +161,7 @@ function token()
         http_response_code(404);
         return;
     }
-
+    
     try {
         $userId = match ($grantType) {
             "authorization_code" => handleAuthCode($input, $clientId),

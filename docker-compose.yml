@@ -1,17 +1,17 @@
 services:
-  oauth-server:
+  server:
     image: php:alpine
     volumes:
-      - ./server:/home/root
-    working_dir: /home/root
+      - ./server:/home/app
     ports:
-      - 8080:8080
-    command: "php -S 0.0.0.0:8080"
-  oauth-client:
+      - 127.0.0.1:8080:8080
+    command: [ "php", "-S", "0.0.0.0:8080" ]
+    working_dir: /home/app
+  client:
     image: php:alpine
     volumes:
-      - ./client:/home/root
-    working_dir: /home/root
+      - ./client:/home/app
     ports:
-      - 8081:8080
-    command: "php -S 0.0.0.0:8080"
+      - 127.0.0.1:8081:8080
+    command: [ "php", "-S", "0.0.0.0:8080" ]
+    working_dir: /home/app
